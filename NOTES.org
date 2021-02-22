@@ -1,0 +1,7 @@
+#+TITLE: Notes
+
+* <2021-02-22 Mon>
+** discussed various algorithms and combinations of algorithms to make something new:
+*** penrose tilings w/ roguelike generation w/ in a la Catan
+*** can aperiodic tilings be wrapped in a loop, saw images of square tilings on a torus, why dont we just draw a circle in the plane?
+*** top down, vs bottom up generation; above method combines the two
