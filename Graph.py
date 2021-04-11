@@ -10,7 +10,7 @@ class Graph:
         self.r = rows
         self.c = cols
 
-    def gen(self, tiles):  # tiles are an array of all possible tiles --> tile types
+    def gen(self, tiles, choose_function):  # tiles are an array of all possible tiles --> tile types; tried making it able to pass the function for choosing tiles but had some issues
         del self.matrix[:]  # deletes all elements in matrix
         y = 0
         while y < self.r:  # for each row
@@ -59,29 +59,65 @@ class Graph:
                 if north is not None:  # if there is a northern tile
                     if west is not None:  # if there is a western tile
                         if len(worksBoth) > 0:
-                            self.matrix[y][x].set(self.choose(worksBoth))  # pick tile that works with both borders
+                            self.matrix[y][x].set(choose_function(worksBoth))  # pick tile that works with both borders
                         else:
                             reset = True  # reset the row
                     else:  # no western tile
                         if len(worksUp) > 0:
-                            self.matrix[y][x].set(self.choose(worksUp))  # pick tile that works with upper border
+                            self.matrix[y][x].set(choose_function(worksUp))  # pick tile that works with upper border
                         else:
                             reset = True  # reset the row
                 else:
                     if west is not None:  # if there is a western tile
                         if len(worksLeft) > 0:
-                            self.matrix[y][x].set(self.choose(worksLeft))
+                            self.matrix[y][x].set(choose_function(worksLeft))
                         else:
                             reset = True  # reset the row
                     else:  # no tiles around (only going to happen for the first tile most likely)
-                        self.matrix[y][x].set(self.choose(tiles))  # choose from any tile
+                        self.matrix[y][x].set(choose_function(tiles))  # choose from any tile
                 if reset:
                     x = -1
                 x = x + 1
             y = y + 1
 
-    def choose(self, tiles):  # some sort of algorithm for choosing which tile out of the list of possible tiles
+    def random_choose(self, tiles):  # some sort of algorithm for choosing which tile out of the list of possible tiles
         return choice(tiles)
+
+    def abs_similar_choose(self, tiles, tile): # chooses tiles most similar to a set tile
+        least_diff = 10000
+        index = randrange(len(tiles))
+        for i in range(len(tiles)):
+            if tiles[i].abs_edge_difference(tile) < least_diff:
+                least_diff = tiles[i].abs_edge_difference(tile)
+                index = i
+        return tiles[index]
+
+    def abs_different_choose(self, tiles, tile): # chooses tiles most different from a set tile
+        most_diff = 0
+        index = randrange(len(tiles))
+        for i in range(len(tiles)):
+            if tiles[i].abs_edge_difference(tile) > most_diff:
+                least_diff = tiles[i].abs_edge_difference(tile)
+                index = i
+        return tiles[index]
+
+    def signed_similar_choose(self, tiles, tile): # chooses tiles most similar to a set tile
+        least_diff = 10000
+        index = randrange(len(tiles))
+        for i in range(len(tiles)):
+            if tiles[i].signed_edge_difference(tile) < least_diff:
+                least_diff = tiles[i].signed_edge_difference(tile)
+                index = i
+        return tiles[index]
+
+    def signed_different_choose(self, tiles, tile): # chooses tiles most different from a set tile
+        most_diff = 0
+        index = randrange(len(tiles))
+        for i in range(len(tiles)):
+            if tiles[i].signed_edge_difference(tile) > most_diff:
+                least_diff = tiles[i].signed_edge_difference(tile)
+                index = i
+        return tiles[index]
 
     def display(self):
         for y in range(self.r):

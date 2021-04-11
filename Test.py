@@ -1,8 +1,10 @@
 from Graph import *
 from Tile import *
 from random import *
+from Room import *
+from Tileset import *
 import time
-from numba import jit
+# from numba import jit
 
 def allPossibleTiles(numBorderValues):
     lst = []
@@ -30,11 +32,27 @@ def randomTiles(numBorderValues, numTiles):
 startTime = time.time()
 
 def main():
-    tiles = randomTiles(20,(20**4)/4)
+    tiles = randomTiles(2,16)
+    for i in range(10):
+        tiles[i].showBorders()
+        print()
+    print()
     g = Graph(10, 10)
-    g.gen(tiles)
-    print("\n")
+    g.gen(tiles, g.random_choose)
     g.display()
+    print()
+    g.gen(tiles, g.abs_different_choose((1,1,1,1)))
+    g.display()
+    print()
+    g.gen(tiles, g.abs_similar_choose)
+    g.display()
+    print()
+    g.gen(tiles, g.signed_different_choose)
+    g.display()
+    print()
+    g.gen(tiles, g.signed_similar_choose)
+    print("\n")
+
 
 main()
 print(time.time() - startTime)
