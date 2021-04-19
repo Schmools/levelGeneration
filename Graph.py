@@ -10,7 +10,8 @@ class Graph:
         self.r = rows
         self.c = cols
 
-    def gen(self, tiles, choose_function):  # tiles are an array of all possible tiles --> tile types; tried making it able to pass the function for choosing tiles but had some issues
+    def gen(self, tiles,
+            choose_function):  # tiles are an array of all possible tiles --> tile types; tried making it able to pass the function for choosing tiles but had some issues
         del self.matrix[:]  # deletes all elements in matrix
         y = 0
         while y < self.r:  # for each row
@@ -26,9 +27,9 @@ class Graph:
                     x = 0  # restart indexing for the line
                     resets = resets + 1  # add one to the resets counter
                     if resets > 4:  # if there were more than four resets
-                        if y > 0: #if we arent in the first row
+                        if y > 0:  # if we arent in the first row
                             y = y - 2  # go back up two rows (one will get added back so overall go up one)
-                            break #break out of column loop
+                            break  # break out of column loop
                 reset = False  # set reset to false
                 self.matrix[y].append(Tile())  # add a new tile
 
@@ -83,7 +84,7 @@ class Graph:
     def random_choose(self, tiles):  # some sort of algorithm for choosing which tile out of the list of possible tiles
         return choice(tiles)
 
-    def abs_similar_choose(self, tiles, tile): # chooses tiles most similar to a set tile
+    def abs_similar_choose(self, tiles, tile):  # chooses tiles most similar to a set tile
         least_diff = 10000
         index = randrange(len(tiles))
         for i in range(len(tiles)):
@@ -92,7 +93,7 @@ class Graph:
                 index = i
         return tiles[index]
 
-    def abs_different_choose(self, tiles, tile): # chooses tiles most different from a set tile
+    def abs_different_choose(self, tiles, tile):  # chooses tiles most different from a set tile
         most_diff = 0
         index = randrange(len(tiles))
         for i in range(len(tiles)):
@@ -101,7 +102,7 @@ class Graph:
                 index = i
         return tiles[index]
 
-    def signed_similar_choose(self, tiles, tile): # chooses tiles most similar to a set tile
+    def signed_similar_choose(self, tiles, tile):  # chooses tiles most similar to a set tile
         least_diff = 10000
         index = randrange(len(tiles))
         for i in range(len(tiles)):
@@ -110,7 +111,7 @@ class Graph:
                 index = i
         return tiles[index]
 
-    def signed_different_choose(self, tiles, tile): # chooses tiles most different from a set tile
+    def signed_different_choose(self, tiles, tile):  # chooses tiles most different from a set tile
         most_diff = 0
         index = randrange(len(tiles))
         for i in range(len(tiles)):
@@ -124,4 +125,3 @@ class Graph:
             for x in range(self.c):
                 self.matrix[y][x].showBorders()
             print()
-

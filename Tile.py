@@ -2,10 +2,10 @@ class Tile:
 
     def __init__(self, t=None, r=None, b=None, l=None, res=[], Player=False):
         self.borders = []
-        self.borders.append(t)  # add top tile
-        self.borders.append(r)  # add right tile
-        self.borders.append(b)  # add bottom tile
-        self.borders.append(l)  # add lower tile
+        self.borders.append(t)  # add top edge
+        self.borders.append(r)  # add right edge
+        self.borders.append(b)  # add bottom edge
+        self.borders.append(l)  # add lower edge
         self.resource = res  # right now resources are just a list but i would like to enforce some type of structure eventually so that the lists owuld all take the same form --> potentailly a list of numbers where each index represents a specific resource that is uniform
         self.player = Player
 
@@ -46,7 +46,7 @@ class Tile:
     def abs_edge_difference(self, t2):
         diff = 0
         for i in range(4):
-            diff+=abs(self.borders[i]-t2.borders[i])
+            diff += abs(self.borders[i] - t2.borders[i])
         return diff
 
     def signed_edge_difference(self, t2):
