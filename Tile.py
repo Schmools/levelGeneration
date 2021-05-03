@@ -1,6 +1,6 @@
 class Tile:
 
-    def __init__(self, t=None, r=None, b=None, l=None, res=[], Player=False):
+    def __init__(self, t=None, r=None, b=None, l=None, CanGo=True, res=[], Player=False):
         self.borders = []
         self.borders.append(t)  # add top edge
         self.borders.append(r)  # add right edge
@@ -8,6 +8,7 @@ class Tile:
         self.borders.append(l)  # add lower edge
         self.resource = res  # right now resources are just a list but i would like to enforce some type of structure eventually so that the lists owuld all take the same form --> potentailly a list of numbers where each index represents a specific resource that is uniform
         self.player = Player
+        self.canGo = CanGo  # whether or not the player can go there
 
     def set(self, tile):
         for i in range(4):
@@ -38,7 +39,8 @@ class Tile:
         return self.player
 
     def player_arrive(self):
-        self.player = True
+        if self.canGo:
+            self.player = True
 
     def player_leave(self):
         self.player = False
