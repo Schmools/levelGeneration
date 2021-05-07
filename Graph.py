@@ -79,6 +79,7 @@ class Graph:
                     else:  # no tiles around (only going to happen for the first tile most likely)
                         self.matrix[y][x].set(
                             self.random_choose(tiles, "hi (this param doesn't matter)"))  # choose from any tile
+                self.matrix[y][x].isWater() #have the tile figure out whether or not it is water
                 if reset:
                     x = -1
                 x = x + 1
@@ -128,4 +129,10 @@ class Graph:
         for y in range(self.r):
             for x in range(self.c):
                 self.matrix[y][x].showBorders()
+            print()
+
+    def showWater(self):
+        for y in range(self.r):
+            for x in range(self.c):
+                self.matrix[y][x].showWater()
             print()

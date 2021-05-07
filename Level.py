@@ -3,21 +3,19 @@ from Tile import *
 
 
 class Level:
-    def __init__(self, Tiles, Height=10, Width=10, Tiling=None, Resources=None, Resource_Frequency=None, Function=None):
+    def __init__(self, Tiles, Height=10, Width=10, Tiling=None, Resources=None, Resource_Frequency=None,
+                 Function=Graph.random_choose(), Player_location=None):
         self.height = Height  # height of room
         self.width = Width  # width of room
         self.tiles = Tiles
         self.resources = []
         self.function = Function
         self.noTiling = False
+        self.player_loc = Player_location
 
         if Tiling is None:  # if no preset tiling
-            if Function is not None:
-                self.tiling = Graph(self.height, self.width)  # generate a blank graph
-                self.tiling.gen(self.tiles, self.function)  # generate tiling
-            else:
-                self.tiling = Graph(self.height, self.width)
-                self.noTiling = True
+            self.tiling = Graph(self.height, self.width)  # generate a blank graph
+            self.tiling.gen(self.tiles, self.function)  # generate tiling
         else:
             self.tiling = Tiling  # load preset tiling [graph object]
 
@@ -34,6 +32,13 @@ class Level:
             else:
                 self.resources = Resources
                 self.sync_resources_to_tiles()
+
+    def update_player_loc(self):
+        for i in self.height:
+            for j in self.width:
+                if self.tiling[i][j].is_player_here():
+                    self.player_loc = (i, j)
+                    return
 
     def random_resource(self, frq):  # takes resource frequency and spits out a resource list (can be empty)
         res = []

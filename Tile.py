@@ -1,3 +1,4 @@
+from collections import Counter
 class Tile:
 
     def __init__(self, t=None, r=None, b=None, l=None, CanGo=True, res=[], Player=False):
@@ -9,6 +10,16 @@ class Tile:
         self.resource = res  # right now resources are just a list but i would like to enforce some type of structure eventually so that the lists owuld all take the same form --> potentailly a list of numbers where each index represents a specific resource that is uniform
         self.player = Player
         self.canGo = CanGo  # whether or not the player can go there
+        self.water = self.isWater()
+
+    def isWater(self):
+        self.ones = 0
+        for i in self.borders:
+            if type(i) == int and i == 1:
+                self.ones += 1
+        if self.ones >= 2:
+            return True
+        return False
 
     def set(self, tile):
         for i in range(4):
@@ -56,3 +67,9 @@ class Tile:
         for i in range(4):
             diff += self.borders[i] - t2.borders[i]
         return diff
+
+    def showWater(self):
+        if self.water:
+            print("w", end="")
+        else:
+            print(" ", end="")
