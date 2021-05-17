@@ -31,10 +31,12 @@ class Graph:
                             y = y - 2  # go back up two rows (one will get added back so overall go up one)
                             break  # break out of column loop
                 reset = False  # set reset to false
-                self.matrix[y].append(Tile())  # add a new tile
 
                 north = None  # north border
                 west = None  # left border
+
+                self.matrix[y].append(Tile()) #add new empty tile
+                # print(self.matrix, y, x)
 
                 if y > 0:  # if not on the top row
                     north = self.matrix[y - 1][x].bottom()  # get the bottom of the tile above
@@ -79,7 +81,7 @@ class Graph:
                     else:  # no tiles around (only going to happen for the first tile most likely)
                         self.matrix[y][x].set(
                             self.random_choose(tiles, "hi (this param doesn't matter)"))  # choose from any tile
-                self.matrix[y][x].isWater() #have the tile figure out whether or not it is water
+                self.matrix[y][x].isWater()  # have the tile figure out whether or not it is water
                 if reset:
                     x = -1
                 x = x + 1

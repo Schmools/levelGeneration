@@ -71,9 +71,10 @@ def main():
     print("\n")
     # print(json.dumps(g))"""
 
-    l = Level(tiles, 10, 10, None, None, None, None)
-    for i in tiles:
-        i.showWater()
+    l = Level(tiles, 10, 10)
+
+    # for i in tiles:
+    #     i.showWater()
     l.update_function(Graph.random_choose)
     l.re_gen()
     print("Random")

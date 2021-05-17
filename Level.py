@@ -4,7 +4,7 @@ from Tile import *
 
 class Level:
     def __init__(self, Tiles, Height=10, Width=10, Tiling=None, Resources=None, Resource_Frequency=None,
-                 Function=Graph.random_choose(), Player_location=None):
+                 Function=Graph.random_choose, Player_location=None):
         self.height = Height  # height of room
         self.width = Width  # width of room
         self.tiles = Tiles
