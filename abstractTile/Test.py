@@ -5,6 +5,9 @@ from Tiles import *
 
 # from numba import jit
 
+def borderDecrease(randIn, numBorderValues):
+    return randIn * (255/numBorderValues)
+
 def allPossibleTiles(numBorderValues):
     lst = []
     for i in range(1, numBorderValues + 1):
@@ -18,10 +21,10 @@ def allPossibleTiles(numBorderValues):
 def randomTiles(numBorderValues, numTiles):
     lst = []
     while len(lst) < numTiles:
-        s1 = Edge([1, ()])
-        s2 = Edge([1, ()])
-        s3 = Edge([1, ()])
-        s4 = Edge([1, ()])
+        s1 = Edge([1, (borderDecrease(randrange(1, numBorderValues),numBorderValues), borderDecrease(randrange(1, numBorderValues),numBorderValues), borderDecrease(randrange(1, numBorderValues),numBorderValues))])
+        s2 = Edge([1, (borderDecrease(randrange(1, numBorderValues),numBorderValues), borderDecrease(randrange(1, numBorderValues),numBorderValues), borderDecrease(randrange(1, numBorderValues),numBorderValues))])
+        S3 = Edge([1, (borderDecrease(randrange(1, numBorderValues),numBorderValues), borderDecrease(randrange(1, numBorderValues),numBorderValues), borderDecrease(randrange(1, numBorderValues),numBorderValues))])
+        s4 = Edge([1, (borderDecrease(randrange(1, numBorderValues),numBorderValues), borderDecrease(randrange(1, numBorderValues),numBorderValues), borderDecrease(randrange(1, numBorderValues),numBorderValues))])
 
         tile = Tile([s1, s2, s3, s4])
         if tile not in lst:
